@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# coding: utf-8
+
 import torch
 from torch.utils.data import DataLoader
 
@@ -14,11 +17,11 @@ if __name__ == '__main__':
         print('GPU is not available')
         device = torch.device('cpu')
 
-    epochs = 100
-    log_interval = 10
+    epochs = 10000
+    log_interval = 100
 
-    train_data = PointCloudDataset('bunny.txt', 1000)
-    train_loader = DataLoader(train_data, batch_size=8, shuffle=True)
+    train_data = PointCloudDataset('fish', 20000)
+    train_loader = DataLoader(train_data, batch_size=256, shuffle=True)
 
     model = CPDNet().to(device)
 
@@ -48,5 +51,5 @@ if __name__ == '__main__':
 
             if batch_id % log_interval == 0:
                 print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-                      epoch, batch_id * len(x), len(train_loader.dataset),
+                      epoch + 1, batch_id * len(x), len(train_loader.dataset),
                             100. * batch_id / len(train_loader), loss.item()))

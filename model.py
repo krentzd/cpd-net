@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# coding: utf-8
+
 import torch
 from torch import nn
 import torch.nn.functional as F
@@ -5,7 +8,7 @@ import torch.nn.functional as F
 class CPDNet(nn.Module):
 
     def __init__(self,
-                 dims: int=3,
+                 dims: int=2,
                  mlp_in_layers: list=[16, 64, 128, 256, 512],
                  mlp_out_layers: list=[256, 128]):
         super().__init__()
@@ -57,10 +60,3 @@ class CPDNet(nn.Module):
             c = self.out_bn[level](c)
 
         return self.final_layer(c)
-
-# if __name__ == '__main__':
-#     net = CPDNet()
-#     X = torch.randn(3, 100).unsqueeze(0)
-#     Y = torch.randn(3, 100).unsqueeze(0)
-#
-#     print(net(X, Y).shape)
